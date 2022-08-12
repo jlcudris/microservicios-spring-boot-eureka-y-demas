@@ -79,7 +79,9 @@ public class UserServiceImp implements   UserService {
 
     @Override
     public List<Car> getCarsAllByUserId(long userId) {
-        if(getUserById(userId) == null){
+
+        User user =userRepository.findById(userId).orElse(null);
+        if(user == null){
             return null;
         }
         return carFeignClient.getAllCarsByUser(userId);

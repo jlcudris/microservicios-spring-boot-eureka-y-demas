@@ -13,6 +13,6 @@ public interface CarFeignClient {
     Car save(@RequestBody Car car);
 
     @GetMapping("/car/user/{userId}")
-    List<Car> getAllCarsByUser(@PathVariable long userId);
+    List<Car> getAllCarsByUser(@PathVariable(name = "userId") long userId);
 
 }

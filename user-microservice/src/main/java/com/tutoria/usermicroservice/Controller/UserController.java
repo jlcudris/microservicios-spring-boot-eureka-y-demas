@@ -100,14 +100,27 @@ public class UserController {
     }
 //este retorna los carros por id de usuarios mediante feignClient
     @GetMapping("carAll/byUserFeignClient/{id}")
-    public ResponseEntity<List<Car>> getCarsByUserId(@PathVariable(name = "id") long id){
+    public ResponseEntity<?> getCarsByUserId(@PathVariable(name = "id") long id){
+        User user =userService.getUserById(id);
+        Map<String,Object> ressu=new HashMap<>();
+        ressu.put("user",user);
+        ressu.put("bikes",userService.getCarsAllByUserId(id));
+        //return ResponseEntity.ok(ressu);
 
-        if(userService.getCarsAllByUserId(id) == null)
+        if(userService.getCarsAllByUserId(id) != null){
+            return userService.getCarsAllByUserId(id).stream().count() >0
+                    ?ResponseEntity.ok(userService.getCarsAllByUserId(id))
+                    :ResponseEntity.noContent().build();
+
+        }
+        return new ResponseEntity<>(ressu,HttpStatus.NOT_FOUND);
+
+       /* if(userService.getCarsAllByUserId(id) == null)
             return ResponseEntity.notFound().build();
 
         return userService.getCarsAllByUserId(id).stream().count() >0
                 ?ResponseEntity.ok(userService.getCarsAllByUserId(id))
-                :ResponseEntity.noContent().build();
+                :ResponseEntity.noContent().build();*/
 
     }
 
