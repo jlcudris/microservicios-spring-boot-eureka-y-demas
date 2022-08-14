@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          default-label: multiples-instancias
+          default-label: gateway-cap-8
           uri: https://github.com/jlcudris/microservicios-spring-boot-eureka-y-demas
           search-paths: config-data
   application:
