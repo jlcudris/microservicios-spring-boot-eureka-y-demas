@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          default-label: gateway-cap-8
+          default-label: circuit-breaker
           uri: https://github.com/jlcudris/microservicios-spring-boot-eureka-y-demas
           search-paths: config-data
   application:
